@@ -3,14 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/pro-layout": "^4.5.10",
+    "@types/graphql": "^14.2.2",
     "@types/mocha": "^5.2.7",
     "@types/react-router-dom": "^4.3.4",
     "@types/styled-components": "^4.1.16",
     "antd": "^3.20.0",
+    "apollo-boost": "^0.4.3",
     "final-form": "^4.16.1",
+    "graphql": "^14.4.1",
     "jest": "^24.8.0",
     "mocha": "^6.1.4",
     "react": "^16.8.6",
+    "react-apollo": "^2.5.8",
     "react-dom": "^16.8.6",
     "react-final-form": "^6.3.0",
     "react-router-dom": "^5.0.1",
@@ -29,5 +34,6 @@
     "@types/react": "^16.8.22",
     "@types/react-dom": "^16.8.4",
     "typescript": "^3.5.2"
-  }
+  },
+  "proxy": "http://localhost:4000"
 }
