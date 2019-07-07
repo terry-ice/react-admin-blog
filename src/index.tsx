@@ -7,7 +7,18 @@ import registerServiceWorker from "./registerServiceWorker";
 import App from "./routes/app";
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000"
+  uri: "http://localhost:4000",
+  request: operation => {
+    const token = localStorage.getItem("token");
+    operation.setContext({
+      fetchOptions: {
+        credentials: "include"
+      },
+      headers: {
+        authorization: token ? `${token}` : ""
+      }
+    });
+  }
 });
 
 const Index = () => (

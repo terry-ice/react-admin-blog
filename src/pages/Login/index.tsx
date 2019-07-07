@@ -1,6 +1,7 @@
 import gql from "graphql-tag";
 import React from "react";
 import { Mutation, OperationVariables } from "react-apollo";
+import User from "../../components/Auth";
 
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -32,6 +33,11 @@ class Login extends React.Component<{}, State> {
     return (
       <div>
         <h1>login Page</h1>
+        <User>
+          {(data: any) => {
+            return <div>test</div>;
+          }}
+        </User>
         <Mutation<Data, OperationVariables>
           mutation={SIGNIN_MUTATION}
           variables={this.state}
