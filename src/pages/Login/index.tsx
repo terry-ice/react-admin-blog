@@ -1,6 +1,7 @@
 import gql from "graphql-tag";
 import React from "react";
 import { Mutation, OperationVariables } from "react-apollo";
+import LoginStyle from "./style";
 
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -30,8 +31,7 @@ class Login extends React.Component<{}, State> {
   };
   render() {
     return (
-      <div>
-        <h1>login Page</h1>
+      <LoginStyle>
         <Mutation<Data, OperationVariables>
           mutation={SIGNIN_MUTATION}
           variables={this.state}
@@ -46,36 +46,36 @@ class Login extends React.Component<{}, State> {
                   // this.setState({ email: "", password: "" });
                 }}
               >
-                <fieldset disabled={loading} aria-busy={loading}>
-                  <h2>Login into your Account</h2>
-                  <label htmlFor="email">
-                    Email
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="email"
-                      value={this.state.email}
-                      onChange={this.saveToState}
-                    />
-                  </label>
-                  <label htmlFor="password">
-                    Password
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="password"
-                      value={this.state.password}
-                      onChange={this.saveToState}
-                    />
-                  </label>
+                <h2>Sign in to terry-blog-admin</h2>
+                <h4>Please enter your credentials to proceed</h4>
+                <label htmlFor="email">
+                  Email
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="email"
+                    value={this.state.email}
+                    onChange={this.saveToState}
+                  />
+                </label>
+                <label htmlFor="password">
+                  Password
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="password"
+                    value={this.state.password}
+                    onChange={this.saveToState}
+                  />
+                </label>
 
-                  <button type="submit">Sign Up!</button>
-                </fieldset>
+                <button type="submit">Sign Up!</button>
               </form>
             );
           }}
         </Mutation>
-      </div>
+        <div className="right" />
+      </LoginStyle>
     );
   }
 }

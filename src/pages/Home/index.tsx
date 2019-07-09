@@ -1,5 +1,6 @@
 import React from "react";
 import { Field, Form } from "react-final-form";
+import { Link } from "react-router-dom";
 import Styles from "../../assets/style/Style";
 import CheckboxInput from "../../components/CheckboxInput";
 import MultiCheckboxInput from "../../components/MultiCheckboxInput";
@@ -31,6 +32,7 @@ const onSubmit = async (values: Values) => {
 
 const Home: React.FC = () => (
   <Styles>
+    <Link to="/admin">admin</Link>
     <h1>🏁 React Final Form</h1>
     <h2>Strongly Typed Values with TypeScript</h2>
     <p>

@@ -1,6 +1,8 @@
 import gql from "graphql-tag";
 import React from "react";
 import { Query } from "react-apollo";
+import { Link } from "react-router-dom";
+
 
 const ALL_ITEMS_QUERY = gql`
   query ALL_ITEMS_QUERY {
@@ -15,6 +17,7 @@ const ALL_ITEMS_QUERY = gql`
 const Admin = () => (
   <div>
     <h1>admin Page</h1>
+    <Link to="/home">Home</Link>
     <Query query={ALL_ITEMS_QUERY}>
       {(data: any) => {
         if (data.loading) {
