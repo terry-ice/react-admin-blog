@@ -13,6 +13,7 @@
     "ordered-imports": true,
     "jsx-boolean-value": false,
     "jsx-no-lambda": false,
-    "object-literal-sort-keys": false
+    "object-literal-sort-keys": false,
+    "no-unused-expression": false
   }
 }

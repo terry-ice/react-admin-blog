@@ -9,7 +9,7 @@ interface Props {
   children: any;
 }
 
-class LayoutSider extends React.Component<Props, State> {
+class LayoutWrapper extends React.Component<Props, State> {
   state = {
     collapsed: false
   };
@@ -56,4 +56,4 @@ class LayoutSider extends React.Component<Props, State> {
   }
 }
 
-export default LayoutSider;
+export default LayoutWrapper;
