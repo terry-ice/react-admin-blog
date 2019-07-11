@@ -7,14 +7,14 @@ const Login = React.lazy(() => import("../pages/Login"));
 const Routes = [
   {
     path: "/home",
-    title: "home",
+    title: "Home",
     icon: "home",
     component: Home
   },
   {
     path: "/admin",
-    title: "admin",
-    icon: "admin",
+    title: "Setting",
+    icon: "setting",
     component: Admin
   }
 ];

@@ -1,6 +1,10 @@
+import Routes from "@/routes/router";
 import { Breadcrumb, Icon, Layout, Menu } from "antd";
-const { Header, Content, Footer, Sider } = Layout;
 import React from "react";
+import { Link } from "react-router-dom";
+import "./index.scss";
+import SignOut from "./Right";
+const { Header, Sider, Content, Footer } = Layout;
 
 interface State {
   collapsed: boolean;
@@ -10,37 +14,48 @@ interface Props {
 }
 
 class LayoutWrapper extends React.Component<Props, State> {
-  state = {
+  state: State = {
     collapsed: false
   };
 
-  onCollapse = (collapsed: any) => {
-    this.setState({ collapsed });
+  onCollapse = () => {
+    this.setState({
+      collapsed: !this.state.collapsed
+    });
   };
 
   render() {
     return (
-      <Layout style={{ minHeight: "100vh" }}>
+      <Layout style={{ height: "100vh" }}>
         <Sider
-          collapsible
+          className="sider"
+          trigger={null}
           collapsed={this.state.collapsed}
           onCollapse={this.onCollapse}
         >
-          <div className="logo" />
-          <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-            <Menu.Item key="1">
-              <Icon type="pie-chart" />
-              <span>Option 1</span>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Icon type="desktop" />
-              <span>Option 2</span>
-            </Menu.Item>
+          <div className="logo">
+            <Icon
+              className="trigger"
+              type={this.state.collapsed ? "menu-unfold" : "menu-fold"}
+              onClick={this.onCollapse}
+            />
+          </div>
+          <Menu theme="light" defaultSelectedKeys={["1"]} mode="inline">
+            {Routes.map((route: Routers) => (
+              <Menu.Item key={route.title} className="menu-item">
+                <Link to={route.path}>
+                  <Icon type={route.icon} />
+                  <span>{route.title}</span>
+                </Link>
+              </Menu.Item>
+            ))}
           </Menu>
         </Sider>
         <Layout>
-          <Header style={{ background: "#fff", padding: 0 }} />
-          <Content style={{ margin: "0 16px" }}>
+          <Header className="header">
+            <SignOut />
+          </Header>
+          <Content style={{ margin: "24px 16px 0" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>
               <Breadcrumb.Item>User</Breadcrumb.Item>
               <Breadcrumb.Item>Bill</Breadcrumb.Item>

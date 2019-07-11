@@ -1,0 +1,33 @@
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+    :hover {
+      color: #1890ff;
+    }
+  }
+}
+.sider {
+  background: #fff;
+  :global {
+    .ant-menu-item {
+      margin-top: 0px;
+      &::after {
+        left: 0;
+        right: auto;
+      }
+    }
+  }
+}
+.header {
+  display: flex;
+  background: #ffffff;
+  padding: 0;
+  justify-content: flex-end;
+}
