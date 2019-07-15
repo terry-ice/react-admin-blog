@@ -1,12 +1,14 @@
 import { Table } from "antd";
 import React from "react";
-import './index.scss';
+import ArticleList from  './style';
 
 interface ColumnsType {
   key: number;
   name: string;
   age: number;
   address: string;
+  addressb: string;
+  addressc: string;
 }
 const columns = [
   {
@@ -23,11 +25,11 @@ const columns = [
   },
   {
     title: "日期",
-    dataIndex: "address"
+    dataIndex: "addressb"
   },
   {
     title: "状态",
-    dataIndex: "address"
+    dataIndex: "addressc"
   }
 ];
 
@@ -37,7 +39,9 @@ for (let i = 0; i < 46; i++) {
     key: i,
     name: `Edward King ${i}`,
     age: 32,
-    address: `London, Park Lane no. ${i}`
+    address: `London, Park Lane no. ${i}`,
+    addressb: `London, Park Lane no. ${i}`,
+    addressc: `London, Park Lane no. ${i}`
   });
 }
 
@@ -58,7 +62,9 @@ class List extends React.Component {
       hideDefaultSelections: true
     };
     return (
+      <ArticleList>
       <Table className="articleList" rowSelection={rowSelection} columns={columns} dataSource={data} />
+      </ArticleList>
     );
   }
 }

@@ -1,21 +1,25 @@
-import { Input } from "antd";
+import { Button, Input } from "antd";
 import React from "react";
-import styles from './index.module.scss';
+import { Link } from "react-router-dom";
+import Header from "./style";
 
 const { Search } = Input;
 
 export default () => {
   return (
-    <div className={styles.header}>
-       <h3>
-        Vehicles Dashboard <span>100 条数据</span>
-      </h3>
-      <Search
-        placeholder="input search text"
-        // tslint:disable-next-line:no-console
-        onSearch={value => console.log(value)}
-        style={{ width: 200 }}
-      />
-    </div>
+    <Header>
+      <div className="header">
+        <h3>文章列表</h3>
+        <div className="addBtn">
+          <Button icon="plus" type="primary">
+            ADD
+          </Button>
+          <Link to="/admin">admin</Link>
+        </div>
+      </div>
+      <div className="features">
+        <Search placeholder="input search text" onSearch={value => value} />
+      </div>
+    </Header>
   );
 };

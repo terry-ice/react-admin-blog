@@ -1,14 +1,13 @@
 import React, { Suspense } from "react";
-import { Switch } from "react-router-dom";
 import Loading from "../components/common/Loading";
+import LayoutWrapper from "../pages/Layout";
 import BaseRoute from "./baseRoute";
-
 const App = () => (
-  <Suspense fallback={<Loading />}>
-    <Switch>
-      <BaseRoute />
-    </Switch>
-  </Suspense>
+  <LayoutWrapper>
+    <Suspense fallback={<Loading />}>
+        <BaseRoute />
+    </Suspense>
+  </LayoutWrapper>
 );
 
 export default App;

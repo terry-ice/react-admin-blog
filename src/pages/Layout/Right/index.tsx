@@ -18,12 +18,21 @@ const SignOut: React.FC<{}> = () => {
       mutation={SIGN_OUT_MUTATION}
       refetchQueries={[{ query: CURRENT_USER_QUERY }]}
     >
-      {signOut => (
-        <span className="rightDropDown" onClick={() => signOut()}>
-          <Icon type="logout" />
-          退出登录
-        </span>
-      )}
+      {signOut => {
+        return (
+          <span
+            className="rightDropDown"
+            onClick={() => {
+              localStorage.removeItem("token");
+              signOut();
+              (window as any).location="/login"
+            }}
+          >
+            <Icon type="logout" />
+            退出登录
+          </span>
+        );
+      }}
     </Mutation>
   );
 };

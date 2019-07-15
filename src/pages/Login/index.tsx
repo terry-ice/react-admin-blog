@@ -1,14 +1,16 @@
-import { CURRENT_USER_QUERY } from "@/components/common/Auth";
+import { getStore, setStore } from "@/utils";
 import gql from "graphql-tag";
 import React, { useState } from "react";
 import { Mutation, OperationVariables } from "react-apollo";
-import LoginStyle from "./style";
+import { Redirect } from "react-router-dom";
 
+import LoginStyle from "./style";
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       id
       name
+      token
     }
   }
 `;
@@ -17,24 +19,32 @@ interface Data {
   login: { id: string; name: string };
 }
 
-export default () => {
+export default (props: any) => {
   const email = userChangeValue("terryloveyan@gmail.com");
   const password = userChangeValue("");
-
+  if (getStore("token")) {
+    return <Redirect to="/home" />;
+  }
   return (
     <LoginStyle>
       <Mutation<Data, OperationVariables>
         mutation={SIGNIN_MUTATION}
         variables={{ email: email.value, password: password.value }}
-        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
         {(login, { error }) => {
+          const route = props
           return (
             <form
               method="post"
               onSubmit={async (e: any) => {
                 e.preventDefault();
-                login();
+                login().then((res: any) => {
+                  const token = res.data.login.token || "";
+                  if (token) {
+                    setStore("token", token);
+                    route.history.push("/home");
+                  }
+                });
               }}
             >
               <h2>Sign in to terry-blog-admin</h2>
