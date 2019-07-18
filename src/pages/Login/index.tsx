@@ -1,9 +1,9 @@
+import { StyleLaber } from "@/assets/style/commom";
 import { getStore, setStore } from "@/utils";
 import gql from "graphql-tag";
 import React, { useState } from "react";
 import { Mutation, OperationVariables } from "react-apollo";
 import { Redirect } from "react-router-dom";
-
 import LoginStyle from "./style";
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -32,7 +32,7 @@ export default (props: any) => {
         variables={{ email: email.value, password: password.value }}
       >
         {(login, { error }) => {
-          const route = props
+          const route = props;
           return (
             <form
               method="post"
@@ -49,24 +49,28 @@ export default (props: any) => {
             >
               <h2>Sign in to terry-blog-admin</h2>
               <h4>Please enter your credentials to proceed</h4>
-              <label htmlFor="email">
-                Email
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="email"
-                  {...email}
-                />
-              </label>
-              <label htmlFor="password">
-                Password
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  {...password}
-                />
-              </label>
+              <StyleLaber width="320px">
+                <label htmlFor="email">
+                  Email
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="email"
+                    {...email}
+                  />
+                </label>
+              </StyleLaber>
+              <StyleLaber width="320px">
+                <label htmlFor="password">
+                  Password
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="password"
+                    {...password}
+                  />
+                </label>
+              </StyleLaber>
               {error && <div className="error">登录失败！ 账号或密码错误</div>}
               <button type="submit">Sign In</button>
             </form>

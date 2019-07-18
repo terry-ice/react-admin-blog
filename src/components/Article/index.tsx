@@ -1,6 +1,6 @@
-import { Table } from "antd";
+import { Divider, Table } from "antd";
 import React from "react";
-import ArticleList from  './style';
+import ArticleList from "./style";
 
 interface ColumnsType {
   key: number;
@@ -30,6 +30,17 @@ const columns = [
   {
     title: "状态",
     dataIndex: "addressc"
+  },
+  {
+    title: "Action",
+    key: "action",
+    render: (text: any, record: any) => (
+      <span>
+        <a href="javascript:;">编辑</a>
+        <Divider type="vertical" />
+        <a href="javascript:;">查看</a>
+      </span>
+    )
   }
 ];
 
@@ -63,7 +74,12 @@ class List extends React.Component {
     };
     return (
       <ArticleList>
-      <Table className="articleList" rowSelection={rowSelection} columns={columns} dataSource={data} />
+        <Table
+          className="articleList"
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={data}
+        />
       </ArticleList>
     );
   }

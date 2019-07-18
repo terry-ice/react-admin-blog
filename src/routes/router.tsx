@@ -2,8 +2,10 @@ import React from "react";
 
 const Home = React.lazy(() => import("../pages/Home"));
 const Admin = React.lazy(() => import("../pages/Admin"));
-const Login = React.lazy(() => import("../pages/Login"));
 const Article = React.lazy(() => import("../pages/Article"));
+const AddArticle = React.lazy(() => import("../pages/AddArticle"));
+
+const Login = React.lazy(() => import("../pages/Login"));
 
 const routes = [
   {
@@ -23,6 +25,12 @@ const routes = [
     title: "article",
     icon: "setting",
     component: Article
+  },
+  {
+    path: "/add-article",
+    title: "Add-article",
+    icon: "plus-square",
+    component: AddArticle
   }
 ];
 const LoginRoute = {
