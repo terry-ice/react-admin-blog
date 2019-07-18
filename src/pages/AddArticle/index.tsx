@@ -1,21 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "simplemde/dist/simplemde.min.css";
 import SimpleMDE from "simplemde/dist/simplemde.min.js";
 
-const AddArticle = () => {
+const MarkEdit = (props: any) => {
+  const [value, setValue] = useState("");
+
   useEffect(() => {
-    const simplemde = new SimpleMDE({});
-    simplemde.codemirror.on("change", () => {
-      // tslint:disable-next-line:no-console
-      console.log(simplemde.value());
+    const simplemde = new SimpleMDE({
+      element: document.getElementById("markDown")
     });
-  });
+    simplemde.codemirror.on("change", () => {
+      setValue(simplemde.value());
+    });
+  }, [setValue]);
 
   return (
-    <div className="App">
-      <textarea />
-    </div>
+    <>
+      {value}
+      {props.children}
+    </>
   );
 };
 
-export default AddArticle;
+export default MarkEdit;

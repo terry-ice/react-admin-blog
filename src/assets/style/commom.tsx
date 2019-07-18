@@ -53,6 +53,7 @@ export const StyleLaber = styled.div.attrs((props: any) => ({
       height: ${props => props.height};
       background: rgba(224, 231, 255, 0.2);
       border-radius: 5px;
+      color: #2e384d;
       border: 1px solid rgba(224, 231, 255, 1);
     }
     textarea {
@@ -61,6 +62,7 @@ export const StyleLaber = styled.div.attrs((props: any) => ({
       height: ${props => props.height};
       background: rgba(224, 231, 255, 0.2);
       border-radius: 5px;
+      color: #2e384d;
       border: 1px solid rgba(224, 231, 255, 1);
     }
   }

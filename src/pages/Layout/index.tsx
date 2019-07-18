@@ -4,7 +4,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./index.scss";
 import SignOut from "./Right";
-const { Header, Sider, Content, Footer } = Layout;
+const { Header, Sider, Content } = Layout;
 
 interface State {
   collapsed: boolean;
@@ -56,9 +56,6 @@ class LayoutWrapper extends React.Component<Props, State> {
             <SignOut />
           </Header>
           <Content className="content">{this.props.children}</Content>
-          <Footer style={{ textAlign: "center" }}>
-            Ant Design Â©2018 Created by Ant UED
-          </Footer>
         </Layout>
       </Layout>
     );

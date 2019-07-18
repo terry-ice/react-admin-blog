@@ -8,7 +8,10 @@ export default styled.div`
   .article-content {
     background: #fff;
     padding-left: 32px;
-    height: 100vh;
+    height: auto;
     clear: both;
+  }
+  .article-tag {
+    margin-top: 20px;
   }
 `;
