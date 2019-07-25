@@ -1,4 +1,4 @@
-import { btnDefault, btnPrimary, margin } from "@/assets/style/commom";
+import { btnDefault, btnPrimary, margin } from "@/assets/style/common";
 import styled from "styled-components";
 import loginBg from "../../assets/img/login.png";
 

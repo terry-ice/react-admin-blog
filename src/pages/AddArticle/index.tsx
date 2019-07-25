@@ -12,7 +12,7 @@ const MarkEdit = (props: any) => {
     simplemde.codemirror.on("change", () => {
       setValue(simplemde.value());
     });
-  }, [setValue]);
+  }, []);
 
   return (
     <>

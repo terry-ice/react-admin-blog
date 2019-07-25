@@ -1,4 +1,4 @@
-import { StyleLaber } from "@/assets/style/commom";
+import { StyleLaber } from "@/assets/style/common";
 import { getStore, setStore } from "@/utils";
 import gql from "graphql-tag";
 import React, { useState } from "react";

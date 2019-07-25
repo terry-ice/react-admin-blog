@@ -70,7 +70,7 @@ export const StyleLaber = styled.div.attrs((props: any) => ({
 
 export const StyleBtn = styled.div.attrs((props: any) => ({
   width: props.width || "320px",
-  height: props.height || "50px"
+  height: props.height || "40px"
 }))`
   button {
     margin-top: 26px;
