@@ -3,7 +3,8 @@ import React from "react";
 const Home = React.lazy(() => import("../pages/Home"));
 const Admin = React.lazy(() => import("../pages/Admin"));
 const Article = React.lazy(() => import("../pages/Article"));
-// const AddArticle = React.lazy(() => import("../pages/AddArticle"));
+const Tags = React.lazy(() => import("../pages/Tags"));
+const Category = React.lazy(() => import("../pages/Category"));
 
 const Login = React.lazy(() => import("../pages/Login"));
 
@@ -25,6 +26,18 @@ const routes = [
     title: "article",
     icon: "setting",
     component: Article
+  },
+  {
+    path: "/tags",
+    title: "tags",
+    icon: "tag",
+    component: Tags
+  },
+  {
+    path: "/category",
+    title: "category",
+    icon: "category",
+    component: Category
   }
 ];
 const LoginRoute = {
