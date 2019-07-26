@@ -8,7 +8,7 @@ import * as React from "react";
 import { ApolloProvider } from "react-apollo";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
-import "./assets/css/index.scss";
+import "./assets/css/themes.less";
 import registerServiceWorker from "./registerServiceWorker";
 import App from "./routes";
 const history = createBrowserHistory();
