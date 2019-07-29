@@ -5,6 +5,7 @@ const Admin = React.lazy(() => import("../pages/Admin"));
 const Article = React.lazy(() => import("../pages/Article"));
 const Tags = React.lazy(() => import("../pages/Tags"));
 const Category = React.lazy(() => import("../pages/Category"));
+const Comment = React.lazy(() => import("../pages/Comment"));
 
 const Login = React.lazy(() => import("../pages/Login"));
 
@@ -36,8 +37,14 @@ const routes = [
   {
     path: "/category",
     title: "category",
-    icon: "category",
+    icon: "menu",
     component: Category
+  },
+  {
+    path: "/comment",
+    title: "comment",
+    icon: "smile",
+    component: Comment
   }
 ];
 const LoginRoute = {
