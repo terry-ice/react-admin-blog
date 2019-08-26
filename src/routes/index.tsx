@@ -5,7 +5,7 @@ import BaseRoute from "./baseRoute";
 const App = () => (
   <LayoutWrapper>
     <Suspense fallback={<Loading />}>
-        <BaseRoute />
+      <BaseRoute />
     </Suspense>
   </LayoutWrapper>
 );

@@ -1,61 +1,67 @@
 import { StyleBtn, StyleLabel } from "@/assets/style/common";
 import useFrom from "@/components/UseFrom";
+import { useCategory } from "@/state/state";
 import { Input } from "antd";
 import gql from "graphql-tag";
 import React from "react";
 import { Mutation, OperationVariables } from "react-apollo";
-import List, { GET_CATEGORY_QUERY } from "./List";
-const { TextArea } = Input;
-import Style from "./style";
+import { withRouter } from "react-router-dom";
+import { GET_CATEGORY_QUERY } from "../List";
 
-const CREATE_CATEGORY_MUTATION = gql`
-  mutation CREATE_CATEGORY_MUTATION(
+import Article from "./style";
+const { TextArea } = Input;
+
+const UPDATE_CATEGORY_MUTATION = gql`
+  mutation UPDATE_CATEGORY_MUTATION(
+    $id: ID!
     $name: String!
     $slug: String!
     $description: String!
   ) {
-    createCategory(name: $name, slug: $slug, description: $description) {
+    updateCategory(
+      id: $id
+      name: $name
+      slug: $slug
+      description: $description
+    ) {
       id
       name
     }
   }
 `;
-
 interface Data {
-  category: { name: string; slug: string; description: string };
+  category: Category;
 }
 
-export default () => {
+const Update = ({ history }: any) => {
+  const { updateItem } = useCategory();
   const [values, handelChange] = useFrom({
-    name: "",
-    slug: "",
-    description: ""
+    id: updateItem.id,
+    name: updateItem.name,
+    slug: updateItem.slug,
+    description: updateItem.description
   });
   return (
-    <Style>
+    <Article>
       <div className="post-body-content">
-        <List />
-      </div>
-      <div className="postbox-container">
-        <div className="postbox-container-submit">
-          <div className="postbox-container-title">添加分类</div>
+        <div className="article-content">
           <Mutation<Data, OperationVariables>
-            mutation={CREATE_CATEGORY_MUTATION}
+            mutation={UPDATE_CATEGORY_MUTATION}
             variables={{ ...values }}
             refetchQueries={[{ query: GET_CATEGORY_QUERY }]}
           >
-            {addCategory => {
+            {updateCategory => {
               return (
                 <form
                   method="post"
                   onSubmit={async (e: any) => {
                     e.preventDefault();
-                    addCategory().then((res: any) => {
-                      console.log(res, "res");
+                    updateCategory().then((res: any) => {
+                      history.push("/category");
                     });
                   }}
                 >
-                  <StyleLabel width="200px">
+                  <StyleLabel width="80%">
                     <label htmlFor="title">
                       名称：
                       <input
@@ -67,7 +73,7 @@ export default () => {
                       />
                     </label>
                   </StyleLabel>
-                  <StyleLabel width="200px">
+                  <StyleLabel width="80%">
                     <label htmlFor="title">
                       别名：
                       <input
@@ -79,7 +85,7 @@ export default () => {
                       />
                     </label>
                   </StyleLabel>
-                  <StyleLabel width="200px">
+                  <StyleLabel width="80%">
                     <label htmlFor="title">
                       描述:
                       <TextArea
@@ -91,7 +97,7 @@ export default () => {
                       />
                     </label>
                   </StyleLabel>
-                  <StyleBtn width="200px" height="35px">
+                  <StyleBtn width="80%" height="35px">
                     <button type="submit">发布</button>
                   </StyleBtn>
                 </form>
@@ -100,6 +106,8 @@ export default () => {
           </Mutation>
         </div>
       </div>
-    </Style>
+    </Article>
   );
 };
+
+export default withRouter(Update);

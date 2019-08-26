@@ -1,5 +1,6 @@
 import Loading from "@/components/common/Loading";
 import { LoginRoute } from "@/routes/router";
+import { useCategory } from "@/state/state";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
 import { createHttpLink } from "apollo-link-http";
@@ -25,14 +26,16 @@ const client = new ApolloClient({
 const Index = () => (
   <BrowserRouter>
     <ApolloProvider client={client}>
-      <Router history={history}>
-        <React.Suspense fallback={<Loading />}>
-          <Switch>
-            <Route path="/login" component={LoginRoute.component} />
-            <App />
-          </Switch>
-        </React.Suspense>
-      </Router>
+      <useCategory.Provider>
+        <Router history={history}>
+          <React.Suspense fallback={<Loading />}>
+            <Switch>
+              <Route path="/login" component={LoginRoute.component} />
+              <App />
+            </Switch>
+          </React.Suspense>
+        </Router>
+      </useCategory.Provider>
     </ApolloProvider>
   </BrowserRouter>
 );

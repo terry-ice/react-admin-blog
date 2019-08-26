@@ -4,6 +4,12 @@ declare interface Routers {
   readonly icon: string;
   readonly component: any;
 }
+declare interface Category {
+  readonly id?: number;
+  readonly name: string;
+  readonly slug: string;
+  readonly description: string;
+}
 
 declare module "*.css";
 declare module "*.less";
