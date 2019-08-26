@@ -1,4 +1,4 @@
-import { StyleBtn, StyleLaber } from "@/assets/style/common";
+import { StyleBtn, StyleLabel } from "@/assets/style/common";
 import Tag from "@/components/Tag";
 import { Input } from "antd";
 import React from "react";
@@ -14,30 +14,30 @@ export default () => {
       <div className="postbox-container">
         <div className="postbox-container-submit">
           <div className="postbox-container-title">发布</div>
-          <StyleLaber width="200px">
+          <StyleLabel width="200px">
             <label htmlFor="title">
               名称：
               <input type="text" name="title" placeholder="title" />
             </label>
-          </StyleLaber>
-          <StyleLaber width="200px">
+          </StyleLabel>
+          <StyleLabel width="200px">
             <label htmlFor="title">
               别名：
               <input type="text" name="title" placeholder="title" />
             </label>
-          </StyleLaber>
-          <StyleLaber width="200px">
+          </StyleLabel>
+          <StyleLabel width="200px">
             <label htmlFor="title">
               icon:
               <input type="text" name="title" placeholder="title" />
             </label>
-          </StyleLaber>
-          <StyleLaber width="200px">
+          </StyleLabel>
+          <StyleLabel width="200px">
             <label htmlFor="title">
               描述:
               <TextArea placeholder="title" />
             </label>
-          </StyleLaber>
+          </StyleLabel>
           <StyleBtn width="200px" height="35px">
             <button type="submit">发布</button>
           </StyleBtn>

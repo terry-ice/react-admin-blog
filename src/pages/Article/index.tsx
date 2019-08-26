@@ -1,4 +1,4 @@
-import { StyleBtn, StyleLaber } from "@/assets/style/common";
+import { StyleBtn, StyleLabel } from "@/assets/style/common";
 import Tags from "@/components/Tags";
 import { Icon, Input, message, Select, Upload } from "antd";
 import React, { useEffect, useState } from "react";
@@ -60,13 +60,13 @@ export default () => {
     <Article>
       <div className="post-body-content">
         <div className="article-content">
-          <StyleLaber width="472px">
+          <StyleLabel width="472px">
             <label htmlFor="title">
               文章标题
               <input type="text" name="title" placeholder="title" />
             </label>
-          </StyleLaber>
-          <StyleLaber width="472px" height="65px">
+          </StyleLabel>
+          <StyleLabel width="472px" height="65px">
             <label htmlFor="description">
               文章描述
               <TextArea
@@ -74,14 +74,14 @@ export default () => {
                 autosize={{ minRows: 2, maxRows: 6 }}
               />
             </label>
-          </StyleLaber>
-          <StyleLaber width="472px">
+          </StyleLabel>
+          <StyleLabel width="472px">
             <label htmlFor="keywords">
               关键词
               <input name="keywords" placeholder="多个关键词以 ' , ' 隔开" />
             </label>
-          </StyleLaber>
-          <StyleLaber width="272px">
+          </StyleLabel>
+          <StyleLabel width="272px">
             <label htmlFor="keywords">
               标签
               <div className="article-tag">
@@ -90,15 +90,15 @@ export default () => {
                 ))}
               </div>
             </label>
-          </StyleLaber>
-          <StyleLaber width="272px">
+          </StyleLabel>
+          <StyleLabel width="272px">
             <label htmlFor="keywords">
               内容
               <MarkEdit>
                 <TextArea id="markDown" name="body" placeholder="文章内容" />
               </MarkEdit>
             </label>
-          </StyleLaber>
+          </StyleLabel>
         </div>
       </div>
 
@@ -123,13 +123,13 @@ export default () => {
         </div>
         <div className="postbox-container-submit">
           <div className="postbox-container-title">发布</div>
-          <StyleLaber width="200px">
+          <StyleLabel width="200px">
             <label htmlFor="title">
               状态：
               <input type="text" name="title" placeholder="title" />
             </label>
-          </StyleLaber>
-          <StyleLaber width="200px">
+          </StyleLabel>
+          <StyleLabel width="200px">
             <label htmlFor="title">
               公开度：
               <Select defaultValue="lucy" onChange={handleChange}>
@@ -141,8 +141,8 @@ export default () => {
                 <Option value="Yiminghe">yiminghe</Option>
               </Select>
             </label>
-          </StyleLaber>
-          <StyleLaber width="200px">
+          </StyleLabel>
+          <StyleLabel width="200px">
             <label htmlFor="title">
               分类:
               <Select
@@ -158,13 +158,13 @@ export default () => {
                 <Option value="Yiminghe">yiminghe</Option>
               </Select>
             </label>
-          </StyleLaber>
-          <StyleLaber width="200px">
+          </StyleLabel>
+          <StyleLabel width="200px">
             <label htmlFor="title">
               标签：
               <input type="text" name="title" placeholder="title" />
             </label>
-          </StyleLaber>
+          </StyleLabel>
           <StyleBtn width="200px" height="35px">
             <button type="submit">发布</button>
           </StyleBtn>

@@ -1,4 +1,4 @@
-import { StyleLaber } from "@/assets/style/common";
+import { StyleLabel } from "@/assets/style/common";
 import { getStore, setStore } from "@/utils";
 import gql from "graphql-tag";
 import React, { useState } from "react";
@@ -49,7 +49,7 @@ export default (props: any) => {
             >
               <h2>Sign in to terry-blog-admin</h2>
               <h4>Please enter your credentials to proceed</h4>
-              <StyleLaber width="320px">
+              <StyleLabel width="320px">
                 <label htmlFor="email">
                   Email
                   <input
@@ -59,8 +59,8 @@ export default (props: any) => {
                     {...email}
                   />
                 </label>
-              </StyleLaber>
-              <StyleLaber width="320px">
+              </StyleLabel>
+              <StyleLabel width="320px">
                 <label htmlFor="password">
                   Password
                   <input
@@ -70,7 +70,7 @@ export default (props: any) => {
                     {...password}
                   />
                 </label>
-              </StyleLaber>
+              </StyleLabel>
               {error && <div className="error">登录失败！ 账号或密码错误</div>}
               <button type="submit">Sign In</button>
             </form>

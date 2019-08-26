@@ -36,7 +36,7 @@ export const btnDefault = css`
 
 export const btnPrimary = btn("#2E5BFF", "#2E5BFF");
 
-export const StyleLaber = styled.div.attrs((props: any) => ({
+export const StyleLabel = styled.div.attrs((props: any) => ({
   width: props.width || "100%",
   height: props.height || "40px",
   size: props.size || "13px"
