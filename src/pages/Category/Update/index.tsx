@@ -1,7 +1,7 @@
 import { StyleBtn, StyleLabel } from "@/assets/style/common";
 import useFrom from "@/components/UseFrom";
 import { useCategory } from "@/state/state";
-import { Input } from "antd";
+import { Input, message } from "antd";
 import gql from "graphql-tag";
 import React from "react";
 import { Mutation, OperationVariables } from "react-apollo";
@@ -54,10 +54,11 @@ const Update = ({ history }: any) => {
               return (
                 <form
                   method="post"
-                  onSubmit={async (e: any) => {
+                  onSubmit={async (e: React.FormEvent<HTMLFormElement>) => {
                     e.preventDefault();
                     updateCategory().then((res: any) => {
                       history.push("/category");
+                      message.success("编辑成功");
                     });
                   }}
                 >
@@ -97,7 +98,7 @@ const Update = ({ history }: any) => {
                       />
                     </label>
                   </StyleLabel>
-                  <StyleBtn width="80%" height="35px">
+                  <StyleBtn width="30%" height="35px">
                     <button type="submit">发布</button>
                   </StyleBtn>
                 </form>

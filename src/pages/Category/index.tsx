@@ -1,6 +1,6 @@
 import { StyleBtn, StyleLabel } from "@/assets/style/common";
 import useFrom from "@/components/UseFrom";
-import { Input } from "antd";
+import { Input, message } from "antd";
 import gql from "graphql-tag";
 import React from "react";
 import { Mutation, OperationVariables } from "react-apollo";
@@ -48,10 +48,11 @@ export default () => {
               return (
                 <form
                   method="post"
-                  onSubmit={async (e: any) => {
+                  onSubmit={async (e: React.FormEvent<HTMLFormElement>) => {
                     e.preventDefault();
                     addCategory().then((res: any) => {
                       console.log(res, "res");
+                      message.success("添加成功");
                     });
                   }}
                 >
