@@ -1,8 +1,10 @@
 import { StyleLabel } from "@/assets/style/common";
 import { getStore, setStore } from "@/utils";
+// import { Mutator } from "final-form";
 import gql from "graphql-tag";
-import React, { useState } from "react";
+import * as React from "react";
 import { Mutation, OperationVariables } from "react-apollo";
+import { Field, Form } from "react-final-form";
 import { Redirect } from "react-router-dom";
 import LoginStyle from "./style";
 const SIGNIN_MUTATION = gql`
@@ -20,60 +22,82 @@ interface Data {
 }
 
 export default (props: any) => {
-  const email = userChangeValue("terryloveyan@gmail.com");
-  const password = userChangeValue("");
+  const required = (value: string) => (value ? undefined : "Required");
   if (getStore("token")) {
     return <Redirect to="/home" />;
   }
+
   return (
     <LoginStyle>
-      <Mutation<Data, OperationVariables>
-        mutation={SIGNIN_MUTATION}
-        variables={{ email: email.value, password: password.value }}
-      >
+      <Mutation<Data, OperationVariables> mutation={SIGNIN_MUTATION}>
         {(login, { error }) => {
           const route = props;
           return (
-            <form
-              method="post"
-              onSubmit={async (e: any) => {
-                e.preventDefault();
-                login().then((res: any) => {
-                  const token = res.data.login.token || "";
-                  if (token) {
-                    setStore("token", token);
-                    route.history.push("/home");
-                  }
-                });
+            <Form
+              onSubmit={async value => {
+                login({ variables: value })
+                  .then((res: any) => {
+                    const token = res.data.login.token || "";
+                    if (token) {
+                      setStore("token", token);
+                      route.history.push("/home");
+                    }
+                  })
+                  .catch(err => {
+                    console.log(err);
+                  });
               }}
             >
-              <h2>Sign in to terry-blog-admin</h2>
-              <h4>Please enter your credentials to proceed</h4>
-              <StyleLabel width="320px">
-                <label htmlFor="email">
-                  Email
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="email"
-                    {...email}
-                  />
-                </label>
-              </StyleLabel>
-              <StyleLabel width="320px">
-                <label htmlFor="password">
-                  Password
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    {...password}
-                  />
-                </label>
-              </StyleLabel>
-              {error && <div className="error">登录失败！ 账号或密码错误</div>}
-              <button type="submit">Sign In</button>
-            </form>
+              {({ handleSubmit, form, submitting, pristine, values }) => (
+                <form onSubmit={handleSubmit}>
+                  <h2>Sign in to terry-blog-admin</h2>
+                  <h4>Please enter your credentials to proceed</h4>
+                  <StyleLabel width="320px">
+                    <Field name="email">
+                      {({ input, meta }: any) => (
+                        <label htmlFor="email">
+                          Email
+                          <input
+                            {...input}
+                            type="email"
+                            name="email"
+                            placeholder="email"
+                          />
+                          {meta.error && meta.touched && (
+                            <span className="error">{meta.error}</span>
+                          )}
+                        </label>
+                      )}
+                    </Field>
+                  </StyleLabel>
+                  <StyleLabel width="320px">
+                    <Field name="password" validate={required}>
+                      {({ input, meta }) => (
+                        <label htmlFor="password">
+                          Password
+                          <input
+                            {...input}
+                            type="password"
+                            name="password"
+                            placeholder="password"
+                          />
+                          {meta.error && meta.touched && (
+                            <span className="error">{meta.error}</span>
+                          )}
+                        </label>
+                      )}
+                    </Field>
+                  </StyleLabel>
+
+                  {error && (
+                    <div className="error">登录失败！ 账号或密码错误</div>
+                  )}
+                  <button type="submit" disabled={submitting || pristine}>
+                    Sign In
+                  </button>
+                </form>
+              )}
+            </Form>
           );
         }}
       </Mutation>
@@ -81,15 +105,3 @@ export default (props: any) => {
     </LoginStyle>
   );
 };
-
-function userChangeValue(params: string) {
-  const [value, setValue] = useState<string>(params);
-
-  function handleChange(event: { target: HTMLInputElement }) {
-    setValue(event.target.value);
-  }
-  return {
-    value,
-    onChange: handleChange
-  };
-}
