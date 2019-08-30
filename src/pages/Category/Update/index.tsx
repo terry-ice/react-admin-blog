@@ -1,6 +1,5 @@
 import { StyleBtn, StyleLabel } from "@/assets/style/common";
 import useFrom from "@/components/UseFrom";
-import { useCategory } from "@/state/state";
 import { Input, message } from "antd";
 import gql from "graphql-tag";
 import React from "react";
@@ -34,7 +33,7 @@ interface Data {
 }
 
 const Update = ({ history }: any) => {
-  const { updateItem } = useCategory();
+  const updateItem: any = [];
   const [values, handelChange] = useFrom({
     id: updateItem.id,
     name: updateItem.name,

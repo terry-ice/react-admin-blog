@@ -1,11 +1,15 @@
 import DelBtn from "@/components/DelBtn";
-import { useCategory } from "@/state/state";
+import { fetchCategorySuccess } from "@/redux/article/actions";
 import { Divider, Table } from "antd";
 import gql from "graphql-tag";
+// import { IDispatchable } from "models";
 import React, { useState } from "react";
 import { Query } from "react-apollo";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { compose } from "recompose";
 import ArticleList from "./style";
+
 const GET_CATEGORY_QUERY = gql`
   query GET_CATEGORY_QUERY {
     categories {
@@ -17,19 +21,12 @@ const GET_CATEGORY_QUERY = gql`
     }
   }
 `;
-interface ColumnsType {
-  key: number;
-  name: string;
-  slug: string;
-  description: string;
-}
 
 interface CategoryList {
-  categories: ColumnsType[];
+  categories: Category[];
 }
-const List = ({ history }: any) => {
-  const { setCategory } = useCategory();
-  const [list, setList] = useState<ColumnsType[]>([]);
+const List = ({ history, dispatch }: any) => {
+  const [list] = useState<Category[]>([]);
   const [selectKey, setSelectKey] = useState<string[]>([]);
   const onSelectChange = (selectedRowKeys: string[]) => {
     setSelectKey(selectedRowKeys);
@@ -62,7 +59,7 @@ const List = ({ history }: any) => {
             <span>
               <a
                 onClick={() => {
-                  setCategory(record);
+                  // dispatch({ type: "category_info", data: record });
                   history.push(`/category/update`);
                 }}
               >
@@ -80,8 +77,9 @@ const List = ({ history }: any) => {
     <ArticleList>
       <Query<CategoryList, {}> query={GET_CATEGORY_QUERY}>
         {({ loading, data }) => {
-          if (data) {
-            setList(data.categories);
+          console.log(loading, "loading");
+          if (data && data.categories) {
+            dispatch(fetchCategorySuccess(data.categories));
           }
           return (
             <Table
@@ -97,5 +95,5 @@ const List = ({ history }: any) => {
     </ArticleList>
   );
 };
-export default withRouter(List);
+export default compose(connect())(withRouter(List));
 export { GET_CATEGORY_QUERY };

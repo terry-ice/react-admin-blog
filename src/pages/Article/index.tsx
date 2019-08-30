@@ -160,16 +160,26 @@ export default () => {
                         </label>
                       </StyleLabel>
                       <StyleLabel width="272px">
-                        <label htmlFor="keywords">
-                          内容
-                          <MarkEdit>
-                            <TextArea
-                              id="markDown"
-                              name="body"
-                              placeholder="文章内容"
-                            />
-                          </MarkEdit>
-                        </label>
+                        <Field name="body">
+                          {({ input, meta }: any) => {
+                            return (
+                              <label htmlFor="keywords">
+                                内容
+                                <MarkEdit {...input}>
+                                  <TextArea
+                                    name="body"
+                                    id="markDown"
+                                    placeholder="文章内容"
+                                    autosize={{ minRows: 2, maxRows: 6 }}
+                                  />
+                                </MarkEdit>
+                                {meta.error && meta.touched && (
+                                  <span className="error">{meta.error}</span>
+                                )}
+                              </label>
+                            );
+                          }}
+                        </Field>
                       </StyleLabel>
                     </div>
                   </div>
@@ -221,7 +231,7 @@ export default () => {
                       <StyleLabel width="200px">
                         <label htmlFor="title">
                           分类:
-                          <Select
+                          {/* <Select
                             defaultValue="lucy"
                             style={{ width: 120 }}
                             onChange={handleChange}
@@ -232,7 +242,15 @@ export default () => {
                               Disabled Disabled
                             </Option>
                             <Option value="Yiminghe">yiminghe</Option>
-                          </Select>
+                          </Select> */}
+                          <Field name="toppings" component="select" multiple>
+                            <option value="chicken">🐓 Chicken</option>
+                            <option value="ham">🐷 Ham</option>
+                            <option value="mushrooms">🍄 Mushrooms</option>
+                            <option value="cheese">🧀 Cheese</option>
+                            <option value="tuna">🐟 Tuna</option>
+                            <option value="pineapple">🍍 Pineapple</option>
+                          </Field>
                         </label>
                       </StyleLabel>
                       <StyleLabel width="200px">
