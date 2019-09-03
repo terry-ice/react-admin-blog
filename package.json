@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/pro-layout": "^4.5.10",
+    "@apollo/react-hooks": "^3.0.1",
     "@types/graphql": "^14.2.2",
     "@types/mocha": "^5.2.7",
     "@types/react-redux": "^7.1.2",
@@ -13,7 +14,7 @@
     "@types/simplemde": "^1.11.7",
     "@types/styled-components": "^4.1.16",
     "antd": "^3.20.0",
-    "apollo-boost": "^0.4.3",
+    "apollo-boost": "^0.4.4",
     "constate": "^1.2.0",
     "final-form": "^4.16.1",
     "graphql": "^14.4.1",

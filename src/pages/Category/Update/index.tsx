@@ -1,10 +1,14 @@
 import { StyleBtn, StyleLabel } from "@/assets/style/common";
 import useFrom from "@/components/UseFrom";
+import { selectCategoryInfo } from "@/redux/article/selectors";
 import { Input, message } from "antd";
 import gql from "graphql-tag";
 import React from "react";
 import { Mutation, OperationVariables } from "react-apollo";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { compose } from "recompose";
+import { createSelector } from "reselect";
 import { GET_CATEGORY_QUERY } from "../List";
 
 import Article from "./style";
@@ -32,8 +36,8 @@ interface Data {
   category: Category;
 }
 
-const Update = ({ history }: any) => {
-  const updateItem: any = [];
+const Update = ({ history, categoryInfo }: any) => {
+  const updateItem: any = categoryInfo;
   const [values, handelChange] = useFrom({
     id: updateItem.id,
     name: updateItem.name,
@@ -109,5 +113,13 @@ const Update = ({ history }: any) => {
     </Article>
   );
 };
+const mapStateToProps = createSelector(
+  selectCategoryInfo(),
+  categoryInfo => ({ categoryInfo })
+);
 
-export default withRouter(Update);
+const withConnect = connect(mapStateToProps);
+export default compose(
+  withConnect,
+  withRouter
+)(Update);

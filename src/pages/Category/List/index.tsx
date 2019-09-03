@@ -1,13 +1,14 @@
 import DelBtn from "@/components/DelBtn";
-import { fetchCategorySuccess } from "@/redux/article/actions";
+import { fetchCategorySuccess, setCategoryInfo } from "@/redux/article/actions";
+import { selectCategory } from "@/redux/article/selectors";
 import { Divider, Table } from "antd";
 import gql from "graphql-tag";
-// import { IDispatchable } from "models";
 import React, { useState } from "react";
 import { Query } from "react-apollo";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { compose } from "recompose";
+import { createSelector } from "reselect";
 import ArticleList from "./style";
 
 const GET_CATEGORY_QUERY = gql`
@@ -25,8 +26,14 @@ const GET_CATEGORY_QUERY = gql`
 interface CategoryList {
   categories: Category[];
 }
-const List = ({ history, dispatch }: any) => {
-  const [list] = useState<Category[]>([]);
+interface Props {
+  readonly category: Category[];
+  readonly history: any;
+  readonly dispatch: any;
+}
+
+const List: React.SFC<Props> = ({ category, history, dispatch }) => {
+  const [list] = useState<Category[]>(category);
   const [selectKey, setSelectKey] = useState<string[]>([]);
   const onSelectChange = (selectedRowKeys: string[]) => {
     setSelectKey(selectedRowKeys);
@@ -59,7 +66,7 @@ const List = ({ history, dispatch }: any) => {
             <span>
               <a
                 onClick={() => {
-                  // dispatch({ type: "category_info", data: record });
+                  dispatch(setCategoryInfo(record));
                   history.push(`/category/update`);
                 }}
               >
@@ -77,7 +84,6 @@ const List = ({ history, dispatch }: any) => {
     <ArticleList>
       <Query<CategoryList, {}> query={GET_CATEGORY_QUERY}>
         {({ loading, data }) => {
-          console.log(loading, "loading");
           if (data && data.categories) {
             dispatch(fetchCategorySuccess(data.categories));
           }
@@ -95,5 +101,14 @@ const List = ({ history, dispatch }: any) => {
     </ArticleList>
   );
 };
-export default compose(connect())(withRouter(List));
+const mapStateToProps = createSelector(
+  selectCategory(),
+  category => ({ category })
+);
+
+const withConnect = connect(mapStateToProps);
+export default compose(
+  withConnect,
+  withRouter
+)(List);
 export { GET_CATEGORY_QUERY };

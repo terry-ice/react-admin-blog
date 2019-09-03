@@ -33,10 +33,6 @@ export default () => {
     setTag(["Movies", "Books", "Music", "Sports"]);
   }, [setTag]);
 
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
-
   function getBase64(img: any, callback: any) {
     const reader = new FileReader();
     reader.addEventListener("load", () => callback(reader.result));
@@ -91,7 +87,7 @@ export default () => {
                   });
               }}
             >
-              {({ handleSubmit, form, submitting, pristine, values }) => (
+              {({ handleSubmit, submitting, pristine, values }) => (
                 <form onSubmit={handleSubmit}>
                   <div className="post-body-content">
                     <div className="article-content">
@@ -218,45 +214,58 @@ export default () => {
                       <StyleLabel width="200px">
                         <label htmlFor="title">
                           公开度：
-                          <Select defaultValue="lucy" onChange={handleChange}>
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                              Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
-                          </Select>
+                          <Field name="status" component="select">
+                            {({ input }: any) => {
+                              return (
+                                <Select
+                                  defaultValue="lucy"
+                                  style={{ width: 120 }}
+                                  {...input}
+                                >
+                                  <Option value="0">加密</Option>
+                                  <Option value="1">公开</Option>
+                                </Select>
+                              );
+                            }}
+                          </Field>
                         </label>
                       </StyleLabel>
                       <StyleLabel width="200px">
                         <label htmlFor="title">
                           分类:
-                          {/* <Select
-                            defaultValue="lucy"
-                            style={{ width: 120 }}
-                            onChange={handleChange}
-                          >
-                            <Option value="jack">Jack</Option>
-                            <Option value="lucy">Lucy</Option>
-                            <Option value="disabled" disabled>
-                              Disabled Disabled
-                            </Option>
-                            <Option value="Yiminghe">yiminghe</Option>
-                          </Select> */}
-                          <Field name="toppings" component="select" multiple>
-                            <option value="chicken">🐓 Chicken</option>
-                            <option value="ham">🐷 Ham</option>
-                            <option value="mushrooms">🍄 Mushrooms</option>
-                            <option value="cheese">🧀 Cheese</option>
-                            <option value="tuna">🐟 Tuna</option>
-                            <option value="pineapple">🍍 Pineapple</option>
+                          <Field name="category" component="select">
+                            {({ input }: any) => {
+                              return (
+                                <Select
+                                  defaultValue="lucy"
+                                  style={{ width: 120 }}
+                                  {...input}
+                                >
+                                  <Option value="jack">Jack</Option>
+                                  <Option value="lucy">Lucy</Option>
+                                </Select>
+                              );
+                            }}
                           </Field>
                         </label>
                       </StyleLabel>
                       <StyleLabel width="200px">
                         <label htmlFor="title">
                           标签：
-                          <input type="text" name="title" placeholder="title" />
+                          <Field name="label" component="select">
+                            {({ input }: any) => {
+                              return (
+                                <Select
+                                  defaultValue="js"
+                                  style={{ width: 120 }}
+                                  {...input}
+                                >
+                                  <Option value="js">js</Option>
+                                  <Option value="java">java</Option>
+                                </Select>
+                              );
+                            }}
+                          </Field>
                         </label>
                       </StyleLabel>
                       <StyleBtn width="200px" height="35px">
