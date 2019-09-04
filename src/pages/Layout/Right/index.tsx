@@ -1,40 +1,29 @@
-import { CURRENT_USER_QUERY } from "@/components/common/Auth";
+// import { CURRENT_USER_QUERY } from "@/components/common/Auth";
+import UserContainer from "@/graphql/user";
 import { Icon } from "antd";
-import gql from "graphql-tag";
 import React from "react";
-import { Mutation, OperationVariables } from "react-apollo";
 import "./index.scss";
 
-const SIGN_OUT_MUTATION = gql`
-  mutation SIGNOUT_MUTATION {
-    logout {
-      message
-    }
-  }
-`;
 const SignOut: React.FC<{}> = () => {
-  return (
-    <Mutation<{}, OperationVariables>
-      mutation={SIGN_OUT_MUTATION}
-      refetchQueries={[{ query: CURRENT_USER_QUERY }]}
-    >
-      {signOut => {
-        return (
-          <span
-            className="rightDropDown"
-            onClick={() => {
-              localStorage.removeItem("token");
-              signOut();
-              (window as any).location="/login"
-            }}
-          >
-            <Icon type="logout" />
-            退出登录
-          </span>
-        );
-      }}
-    </Mutation>
-  );
+	return (
+		<UserContainer>
+			{({ logout }: any) => {
+				return (
+					<span
+						className="rightDropDown"
+						onClick={() => {
+							localStorage.removeItem("token");
+							logout();
+							(window as any).location = "/login";
+						}}
+					>
+						<Icon type="logout" />
+						退出登录
+					</span>
+				);
+			}}
+		</UserContainer>
+	);
 };
 
 export default SignOut;

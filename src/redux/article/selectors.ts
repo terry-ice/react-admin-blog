@@ -2,15 +2,18 @@ import { createSelector } from "reselect";
 
 import { IStoreState } from "../storeState";
 
-export const articleState = () => (state: IStoreState) => state.article;
+export const categoryState = () => (state: IStoreState) =>
+  state.article.category;
+export const categoryInfoState = () => (state: IStoreState) =>
+  state.article.categoryInfo;
 
 export const selectCategory = () =>
   createSelector(
-    articleState(),
-    state => state.category
+    categoryState(),
+    state => state
   );
 export const selectCategoryInfo = () =>
   createSelector(
-    articleState(),
-    state => state.categoryInfo
+    categoryInfoState(),
+    state => state
   );

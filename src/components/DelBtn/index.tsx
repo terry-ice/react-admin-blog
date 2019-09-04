@@ -1,54 +1,43 @@
-import { GET_CATEGORY_QUERY } from "@/pages/Category/List";
-import { message, Popconfirm } from "antd";
-import gql from "graphql-tag";
-import React from "react";
-import { Mutation, OperationVariables } from "react-apollo";
+import CategoryContainer from "@/graphql/category";
 
-const DELETE_ITEM_MUTATION = gql`
-  mutation DELETE_ITEM_MUTATION($id: ID!) {
-    deleteCategory(id: $id) {
-      id
-    }
-  }
-`;
-interface Data {
-  category: Category;
-}
+import { message, Popconfirm } from "antd";
+
+import React from "react";
 
 interface Props {
-  readonly id: string;
-  readonly children: React.ReactNode;
+	readonly id: string;
+	readonly children: React.ReactNode;
 }
 
 const DeleteItem: React.SFC<Props> = ({ id, children }) => {
-  function cancel() {
-    message.success("取消操作");
-  }
-  return (
-    <Mutation<Data, OperationVariables>
-      mutation={DELETE_ITEM_MUTATION}
-      variables={{ id }}
-      refetchQueries={[{ query: GET_CATEGORY_QUERY }]}
-    >
-      {(deleteItem, { error }) => (
-        <a>
-          <Popconfirm
-            title="你真的要删除此条分类？"
-            onConfirm={() => {
-              deleteItem().then(res => {
-                message.success("操作成功");
-              });
-            }}
-            onCancel={cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            {children}
-          </Popconfirm>
-        </a>
-      )}
-    </Mutation>
-  );
+	function cancel() {
+		message.success("取消操作");
+	}
+	return (
+		<CategoryContainer>
+			{({ delCategory }: any) => (
+				<a>
+					<Popconfirm
+						title="你真的要删除此条分类？"
+						onConfirm={() => {
+							delCategory
+								.mutation({
+									variables: { id }
+								})
+								.then(() => {
+									message.success("操作成功");
+								});
+						}}
+						onCancel={cancel}
+						okText="Yes"
+						cancelText="No"
+					>
+						{children}
+					</Popconfirm>
+				</a>
+			)}
+		</CategoryContainer>
+	);
 };
 
 export default DeleteItem;

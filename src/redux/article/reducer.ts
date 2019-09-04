@@ -29,7 +29,11 @@ export default handleActions<ArticleState>(
     [FETCH_CATEGORY_SUCCESS]: (
       state,
       action: ReduxActions.Action<IFetchCategoryPayload>
-    ) => ({ ...state, isFetchingPosts: false, ...action.payload }),
+    ) => ({
+      ...state,
+      isFetchingPosts: false,
+      category: action.payload.category
+    }),
     [SET_ARTICLE_INFO]: (state, action: any) => ({
       ...state,
       isFetchingPosts: false,
@@ -39,7 +43,7 @@ export default handleActions<ArticleState>(
       return {
         ...state,
         isFetchingPosts: false,
-        ...action.payload
+        categoryInfo: action.payload.categoryInfo
       };
     }
   },

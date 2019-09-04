@@ -1,32 +1,19 @@
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 
 import gql from "graphql-tag";
 
-const ME_QUERY = gql`
-  {
-    user: me {
-      uuid
-      email
-    }
-  }
-`;
-
-const LOGION_MUTATION = gql`
-  mutation LOGION_MUTATION($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      id
-      name
-      token
-    }
-  }
+const SIGN_OUT_MUTATION = gql`
+	mutation SIGN_OUT_MUTATION {
+		logout {
+			message
+		}
+	}
 `;
 
 const UserContainer = ({ children }: any) => {
-  const { loading, data } = useQuery(ME_QUERY);
-  const [loginMutation, loginResult] = useMutation(LOGION_MUTATION, {});
-  return children({
-    user: { loading, data },
-    login: { mutation: loginMutation, result: loginResult }
-  });
+	const [logoutMutation, logoutResult] = useMutation(SIGN_OUT_MUTATION, {});
+	return children({
+		logout: { mutation: logoutMutation, result: logoutResult }
+	});
 };
 export default UserContainer;
