@@ -3,6 +3,7 @@ import React from "react";
 const Home = React.lazy(() => import("../pages/Home"));
 const Admin = React.lazy(() => import("../pages/Admin"));
 const Article = React.lazy(() => import("../pages/Article"));
+const ArticleAdd = React.lazy(() => import("../pages/Article/Add"));
 const Tags = React.lazy(() => import("../pages/Tags"));
 const Category = React.lazy(() => import("../pages/Category"));
 const CategoryUpdate = React.lazy(() => import("../pages/Category/Update"));
@@ -10,7 +11,7 @@ const Comment = React.lazy(() => import("../pages/Comment"));
 
 const Login = React.lazy(() => import("../pages/Login"));
 
-const Routes = [
+const Routes: Routers[] = [
 	{
 		path: "/home",
 		title: "Home",
@@ -26,8 +27,27 @@ const Routes = [
 	{
 		path: "/article",
 		title: "article",
-		icon: "setting",
-		component: Article
+		icon: "project",
+		children: [
+			{
+				path: "/article/list",
+				title: "article",
+				icon: "ordered-list",
+				component: Article
+			},
+			{
+				path: "/article/add",
+				title: "add",
+				icon: "plus",
+				component: ArticleAdd
+			},
+			{
+				path: "/article/update/:id",
+				title: "update",
+				icon: "edit",
+				component: ArticleAdd
+			}
+		]
 	},
 	{
 		path: "/tags",
@@ -39,13 +59,20 @@ const Routes = [
 		path: "/category",
 		title: "category",
 		icon: "menu",
-		component: Category
-	},
-	{
-		path: "/category/update",
-		title: "category_update",
-		icon: "menu",
-		component: CategoryUpdate
+		children: [
+			{
+				path: "/category/list",
+				title: "category",
+				icon: "ordered-list",
+				component: Category
+			},
+			{
+				path: "/category/update",
+				title: "update",
+				icon: "edit",
+				component: CategoryUpdate
+			}
+		]
 	},
 	{
 		path: "/comment",

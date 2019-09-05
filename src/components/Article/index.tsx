@@ -1,89 +1,93 @@
+import ArticleContainer from "@/graphql/article";
+import { setArticleInfo } from "@/redux/article/actions";
 import { Divider, Table } from "antd";
-
 import React from "react";
-
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { compose } from "recompose";
 import ArticleList from "./style";
 
-interface ColumnsType {
-	key: number;
-	name: string;
-	age: number;
-	address: string;
-	addressb: string;
-	addressc: string;
-}
-const columns = [
-	{
-		title: "标题",
-		dataIndex: "name"
-	},
-	{
-		title: "分类",
-		dataIndex: "age"
-	},
-	{
-		title: "标签",
-		dataIndex: "address"
-	},
-	{
-		title: "日期",
-		dataIndex: "addressb"
-	},
-	{
-		title: "状态",
-		dataIndex: "addressc"
-	},
-	{
-		title: "Action",
-		key: "action",
-		render: (text: any, record: any) => (
-			<span>
-				<a href="javascript:;">编辑</a>
-				<Divider type="vertical" />
-				<a href="javascript:;">查看</a>
-			</span>
-		)
-	}
-];
-
-const data: ColumnsType[] = [];
-for (let i = 0; i < 46; i++) {
-	data.push({
-		key: i,
-		name: `Edward King ${i}`,
-		age: 32,
-		address: `London, Park Lane no. ${i}`,
-		addressb: `London, Park Lane no. ${i}`,
-		addressc: `London, Park Lane no. ${i}`
-	});
+interface Props {
+	readonly history: any;
+	readonly dispatch: any;
 }
 
-class List extends React.Component {
-	state = {
-		selectedRowKeys: [] // Check here to configure the default column
+const List: React.SFC<Props> = ({ history, dispatch }) => {
+	const [rowKeys, setSelectKey] = React.useState<string[]>([]);
+
+	const onSelectChange = (keys: string[]) => {
+		setSelectKey(keys);
 	};
-
-	onSelectChange = (selectedRowKeys: string[]) => {
-		this.setState({ selectedRowKeys });
+	const rowSelection = {
+		rowKeys,
+		onChange: onSelectChange,
+		hideDefaultSelections: true
 	};
+	const columns = [
+		{
+			title: "标题",
+			dataIndex: "title"
+		},
+		{
+			title: "分类",
+			dataIndex: "description"
+		},
+		{
+			title: "标签",
+			dataIndex: "thumbnail"
+		},
+		{
+			title: "日期",
+			dataIndex: "createdAt"
+		},
+		{
+			title: "状态",
+			dataIndex: "state"
+		},
+		{
+			title: "Action",
+			key: "action",
+			render: (text: any, record: any) => (
+				<span>
+					<a
+						onClick={() => {
+							dispatch(setArticleInfo(record));
+							history.push(`/article/update/${record.id}`);
+						}}
+					>
+						编辑
+					</a>
+					<Divider type="vertical" />
+					<a href="javascript:;">查看</a>
+				</span>
+			)
+		}
+	];
+	return (
+		<ArticleList>
+			<ArticleContainer>
+				{({ article: { loading, data } }: any) => {
+					const dataList = data && data.articles ? data.articles : [];
+					if (dataList.length) {
+						console.log(dataList, "dataList");
+						// dispatch(fetchCategorySuccess(dataList));
+					}
+					return (
+						<Table
+							loading={loading}
+							className="articleList"
+							rowSelection={rowSelection}
+							columns={columns}
+							dataSource={dataList}
+						/>
+					);
+				}}
+			</ArticleContainer>
+		</ArticleList>
+	);
+};
 
-	render() {
-		const { selectedRowKeys } = this.state;
-		const rowSelection = {
-			selectedRowKeys,
-			onChange: this.onSelectChange,
-			hideDefaultSelections: true
-		};
-		return (
-			<ArticleList>
-				<Table
-					className="articleList"
-					rowSelection={rowSelection}
-					columns={columns}
-					dataSource={data}
-				/>
-			</ArticleList>
-		);
-	}
-}
-export default List;
+export default compose(
+	connect(),
+	withRouter
+)(List);

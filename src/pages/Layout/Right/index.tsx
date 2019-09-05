@@ -13,7 +13,7 @@ const SignOut: React.FC<{}> = () => {
 						className="rightDropDown"
 						onClick={() => {
 							localStorage.removeItem("token");
-							logout();
+							// logout();
 							(window as any).location = "/login";
 						}}
 					>

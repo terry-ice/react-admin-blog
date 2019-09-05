@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "@apollo/react-hooks";
+
 import gql from "graphql-tag";
 
 const GET_ARTICLE_QUERY = gql`
@@ -7,6 +8,12 @@ const GET_ARTICLE_QUERY = gql`
 			key: id
 			id
 			title
+			content
+			state
+			description
+			keywords
+			thumbnail
+			createdAt
 		}
 	}
 `;
@@ -106,7 +113,7 @@ const ArticleContainer = ({ children }: any) => {
 		{ refetchQueries: ["GET_ARTICLE_QUERY"] }
 	);
 	return children({
-		categories: { loading, data },
+		article: { loading, data },
 		addArticle: { mutation: addArticleMutation, result: addArticleResult },
 		delArticle: { mutation: delArticleMutation, result: delArticleResult },
 		updateArticle: {

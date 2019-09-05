@@ -7,45 +7,53 @@
 import { handleActions } from "redux-actions";
 
 import {
-  FETCH_CATEGORY_SUCCESS,
-  SET_ARTICLE_INFO,
-  SET_CATEGORY_INFO
+	FETCH_CATEGORY_SUCCESS,
+	SET_ARTICLE_INFO,
+	SET_ARTICLE_LIST,
+	SET_CATEGORY_INFO
 } from "./constants";
-import { IFetchCategoryPayload } from "./payloads";
+import { IFetchArticlePayload, IFetchCategoryPayload } from "./payloads";
 import { ArticleState } from "./state";
 
 const initialState: ArticleState = {
-  article: [],
-  label: [],
-  articleInfo: null,
-  categoryInfo: null,
-  category: [],
-  isFetchingPosts: false,
-  fetchDataErrorMessage: ""
+	article: [],
+	label: [],
+	articleInfo: null,
+	categoryInfo: null,
+	category: [],
+	isFetchingPosts: false,
+	fetchDataErrorMessage: ""
 };
 
 export default handleActions<ArticleState>(
-  {
-    [FETCH_CATEGORY_SUCCESS]: (
-      state,
-      action: ReduxActions.Action<IFetchCategoryPayload>
-    ) => ({
-      ...state,
-      isFetchingPosts: false,
-      category: action.payload.category
-    }),
-    [SET_ARTICLE_INFO]: (state, action: any) => ({
-      ...state,
-      isFetchingPosts: false,
-      ...action.payload
-    }),
-    [SET_CATEGORY_INFO]: (state, action: any) => {
-      return {
-        ...state,
-        isFetchingPosts: false,
-        categoryInfo: action.payload.categoryInfo
-      };
-    }
-  },
-  initialState
+	{
+		[SET_ARTICLE_LIST]: (
+			state,
+			action: ReduxActions.Action<IFetchArticlePayload>
+		) => ({
+			...state,
+			...action.payload
+		}),
+		[SET_ARTICLE_INFO]: (state, action: any) => ({
+			...state,
+			isFetchingPosts: false,
+			...action.payload
+		}),
+		[FETCH_CATEGORY_SUCCESS]: (
+			state,
+			action: ReduxActions.Action<IFetchCategoryPayload>
+		) => ({
+			...state,
+			isFetchingPosts: false,
+			category: action.payload.category
+		}),
+		[SET_CATEGORY_INFO]: (state, action: any) => {
+			return {
+				...state,
+				isFetchingPosts: false,
+				categoryInfo: action.payload.categoryInfo
+			};
+		}
+	},
+	initialState
 );
