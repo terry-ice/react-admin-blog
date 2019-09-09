@@ -25,9 +25,8 @@ const CREATE_ARTICLE_MUTATION = gql`
 		$keywords: String
 		$thumbnail: String
 		$content: String
-		$state: Boolean
+		$state: String
 		$category: String!
-		$label: String
 	) {
 		createArticle(
 			title: $title
@@ -37,7 +36,6 @@ const CREATE_ARTICLE_MUTATION = gql`
 			state: $state
 			thumbnail: $thumbnail
 			category: $category
-			label: $label
 		) {
 			id
 			title
@@ -45,20 +43,18 @@ const CREATE_ARTICLE_MUTATION = gql`
 			keywords
 			content
 			thumbnail
-			category {
-				id
-				name
-			}
 		}
 	}
 `;
+
 const DELETE_ITEM_MUTATION = gql`
 	mutation DELETE_ITEM_MUTATION($id: ID!) {
-		deleteCategory(id: $id) {
+		deleteArticle(id: $id) {
 			id
 		}
 	}
 `;
+
 const UPDATE_ARTICLE_MUTATION = gql`
 	mutation UPDATE_ARTICLE_MUTATION(
 		$id: ID!

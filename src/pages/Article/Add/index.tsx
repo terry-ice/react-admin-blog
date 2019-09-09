@@ -15,6 +15,10 @@ import { withRouter } from "react-router-dom";
 import Article from "./style";
 
 const tranStatus = {
+	0: "草稿",
+	1: "发布"
+};
+const tranPublic = {
 	0: "私密",
 	1: "公开"
 };
@@ -31,7 +35,8 @@ const AddArticle: React.SFC<Props> = ({ category, match, article }) => {
 		description: "",
 		keywords: "",
 		body: "",
-		status: 1,
+		public: "1",
+		status: "1",
 		category: "",
 		label: ""
 	};
@@ -40,13 +45,11 @@ const AddArticle: React.SFC<Props> = ({ category, match, article }) => {
 	const [loading, setLoading] = React.useState<boolean>(false);
 	const [imageUrl, setImageUrl] = React.useState<string>("");
 	const [data, handelChange] = useFrom(dataDetail);
-	console.log(data, "data");
-	console.log(article, "article");
 	const required = (value: string) => (value ? undefined : "Required");
 
 	React.useEffect(() => {
 		setTag(["Movies", "Books", "Music", "Sports"]);
-	}, [setTag]);
+	}, []);
 
 	function getBase64(img: any, callback: any) {
 		const reader = new FileReader();
@@ -118,10 +121,7 @@ const AddArticle: React.SFC<Props> = ({ category, match, article }) => {
 															<input
 																{...input}
 																type="text"
-																name="title"
-																placeholder="title"
-																value={values.title}
-																onChange={handelChange}
+																placeholder="请输入标题"
 															/>
 															{meta.error && meta.touched && (
 																<span className="error">{meta.error}</span>
@@ -140,7 +140,6 @@ const AddArticle: React.SFC<Props> = ({ category, match, article }) => {
 																autosize={{ minRows: 2, maxRows: 6 }}
 																placeholder="文章描述"
 																value={values.description}
-																onChange={handelChange}
 															/>
 															{meta.error && meta.touched && (
 																<span className="error">{meta.error}</span>
@@ -156,10 +155,7 @@ const AddArticle: React.SFC<Props> = ({ category, match, article }) => {
 															关键词
 															<input
 																{...input}
-																name="keywords"
 																placeholder="多个关键词以 ' , ' 隔开"
-																value={values.keywords}
-																onChange={handelChange}
 															/>
 															{meta.error && meta.touched && (
 																<span className="error">{meta.error}</span>
@@ -186,9 +182,7 @@ const AddArticle: React.SFC<Props> = ({ category, match, article }) => {
 																内容
 																<MarkEdit {...input}>
 																	<TextArea
-																		name="body"
 																		id="markDown"
-																		value={values.body}
 																		onChange={handelChange}
 																		placeholder="文章内容"
 																		autosize={{ minRows: 2, maxRows: 6 }}
@@ -233,12 +227,6 @@ const AddArticle: React.SFC<Props> = ({ category, match, article }) => {
 											<StyleLabel width="200px">
 												<label htmlFor="title">
 													状态：
-													<input type="text" name="title" placeholder="title" />
-												</label>
-											</StyleLabel>
-											<StyleLabel width="200px">
-												<label htmlFor="title">
-													公开度：
 													<Field name="status" component="select">
 														{({ input }: any) => {
 															return (
@@ -247,6 +235,26 @@ const AddArticle: React.SFC<Props> = ({ category, match, article }) => {
 																	style={{ width: 200 }}
 																	{...input}
 																	value={tranStatus[values.status]}
+																>
+																	<Option value="0">草稿</Option>
+																	<Option value="1">发布</Option>
+																</Select>
+															);
+														}}
+													</Field>
+												</label>
+											</StyleLabel>
+											<StyleLabel width="200px">
+												<label htmlFor="title">
+													公开度：
+													<Field name="public" component="select">
+														{({ input }: any) => {
+															return (
+																<Select
+																	defaultValue={tranPublic[values.public]}
+																	style={{ width: 200 }}
+																	{...input}
+																	value={tranPublic[values.public]}
 																>
 																	<Option value="0">加密</Option>
 																	<Option value="1">公开</Option>

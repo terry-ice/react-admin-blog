@@ -1,7 +1,7 @@
-import Article from "@/components/Article";
 import RightHead from "@/components/RightHead";
 import React from "react";
 import "./index.scss";
+import Article from "./List";
 
 const Home = () => {
 	return (

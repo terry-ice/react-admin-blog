@@ -1,20 +1,21 @@
 {
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
-  "linterOptions": {
-    "exclude": [
-      "config/**/*.js",
-      "node_modules/**/*.ts",
-      "coverage/lcov-report/*.js"
-    ]
-  },
-  "rules": {
-    "interface-name": false,
-    "member-access": [true, "no-public"],
-    "ordered-imports": true,
-    "jsx-boolean-value": false,
-    "jsx-no-lambda": false,
-    "object-literal-sort-keys": false,
-    "no-unused-expression": false,
-    "no-console": false
-  }
+	"extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+	"linterOptions": {
+		"exclude": [
+			"config/**/*.js",
+			"node_modules/**/*.ts",
+			"coverage/lcov-report/*.js"
+		]
+	},
+	"rules": {
+		"interface-name": false,
+		"member-access": [true, "no-public"],
+		"ordered-imports": true,
+		"jsx-boolean-value": false,
+		"jsx-no-lambda": false,
+		"object-literal-sort-keys": false,
+		"no-unused-expression": false,
+		"no-console": false,
+		"no-bitwise": false
+	}
 }
