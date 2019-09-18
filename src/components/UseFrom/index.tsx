@@ -3,7 +3,7 @@ const useFrom = (initialState: any) => {
   const [values, setValues] = useState(initialState);
   return [
     values,
-    (e: any) => {
+    (e: { target: HTMLInputElement }) => {
       setValues({
         ...values,
         [e.target.name]: e.target.value

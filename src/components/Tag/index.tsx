@@ -1,34 +1,23 @@
-import { Divider, Table } from "antd";
-import React from "react";
-import ArticleList from "./style";
-
-interface ColumnsType {
-  key: number;
-  name: string;
-  age: number;
-  address: string;
-  addressc: string;
-}
+import LabelContainer from '@/graphql/label';
+import { Divider, Table } from 'antd';
+import React from 'react';
+import ArticleList from './style';
 const columns = [
   {
-    title: "名称",
-    dataIndex: "name"
+    title: '名称',
+    dataIndex: 'name'
   },
   {
-    title: "描述",
-    dataIndex: "age"
+    title: '描述',
+    dataIndex: 'description'
   },
   {
-    title: "别名",
-    dataIndex: "address"
+    title: '别名',
+    dataIndex: 'slug'
   },
   {
-    title: "icon",
-    dataIndex: "addressc"
-  },
-  {
-    title: "Action",
-    key: "action",
+    title: 'Action',
+    key: 'action',
     render: (text: any, record: any) => (
       <span>
         <a href="javascript:;">编辑</a>
@@ -38,17 +27,6 @@ const columns = [
     )
   }
 ];
-
-const data: ColumnsType[] = [];
-for (let i = 0; i < 46; i++) {
-  data.push({
-    key: i,
-    name: `Edward King ${i}`,
-    age: 32,
-    address: `London, ${i}`,
-    addressc: `London, ${i}`
-  });
-}
 
 class List extends React.Component {
   state = {
@@ -68,12 +46,20 @@ class List extends React.Component {
     };
     return (
       <ArticleList>
-        <Table
-          className="articleList"
-          rowSelection={rowSelection}
-          columns={columns}
-          dataSource={data}
-        />
+        <LabelContainer>
+          {({ getLabel: { loading, data } }: any) => {
+            const dataList = data && data.labels ? data.labels : [];
+            return (
+              <Table
+                loading={loading}
+                className="articleList"
+                rowSelection={rowSelection}
+                columns={columns}
+                dataSource={dataList}
+              />
+            );
+          }}
+        </LabelContainer>
       </ArticleList>
     );
   }
