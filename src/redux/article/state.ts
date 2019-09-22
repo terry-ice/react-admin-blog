@@ -1,4 +1,4 @@
-import { Article, Category, Label } from "models";
+import { Article, Category, Label } from 'models';
 
 export interface ArticleState {
   readonly article: Article[];
@@ -6,6 +6,7 @@ export interface ArticleState {
   readonly categoryInfo?: Category | null;
   readonly articleInfo?: Article | null;
   readonly label: Label[];
+  readonly labelInfo: Label | null;
   readonly isFetchingPosts: boolean;
   readonly fetchDataErrorMessage: string;
 }

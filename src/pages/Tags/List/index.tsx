@@ -1,6 +1,9 @@
 import LabelContainer from '@/graphql/label';
+import { fetchLabel } from '@/redux/article/actions';
 import { Divider, Table } from 'antd';
 import React from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'recompose';
 import ArticleList from './style';
 const columns = [
   {
@@ -27,41 +30,41 @@ const columns = [
     )
   }
 ];
-
-class TagList extends React.Component {
-  state = {
-    selectedRowKeys: [] // Check here to configure the default column
-  };
-
-  onSelectChange = (selectedRowKeys: string[]) => {
-    this.setState({ selectedRowKeys });
-  };
-
-  render() {
-    const { selectedRowKeys } = this.state;
-    const rowSelection = {
-      selectedRowKeys,
-      onChange: this.onSelectChange,
-      hideDefaultSelections: true
-    };
-    return (
-      <ArticleList>
-        <LabelContainer>
-          {({ getLabel: { loading, data } }: any) => {
-            const dataList = data && data.labels ? data.labels : [];
-            return (
-              <Table
-                loading={loading}
-                className="articleList"
-                rowSelection={rowSelection}
-                columns={columns}
-                dataSource={dataList}
-              />
-            );
-          }}
-        </LabelContainer>
-      </ArticleList>
-    );
-  }
+interface PropsType {
+  dispatch: any;
 }
-export default TagList;
+const TagList: React.SFC<PropsType> = ({ dispatch }) => {
+  const [selectedRowKeys, setState] = React.useState<string[]>([]);
+
+  const onSelectChange = (keys: string[]) => {
+    setState(keys);
+  };
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+    hideDefaultSelections: true
+  };
+
+  return (
+    <ArticleList>
+      <LabelContainer>
+        {({ getLabel: { loading, data } }: any) => {
+          const dataList = data && data.labels ? data.labels : [];
+          dispatch(fetchLabel(dataList));
+          return (
+            <Table
+              loading={loading}
+              className="articleList"
+              rowSelection={rowSelection}
+              columns={columns}
+              dataSource={dataList}
+            />
+          );
+        }}
+      </LabelContainer>
+    </ArticleList>
+  );
+};
+
+export default compose(connect())(TagList);

@@ -1,4 +1,4 @@
-import { ArticleState } from "./article/state";
+import { ArticleState } from './article/state';
 // import { IPostsState } from "./posts/state";
 /* new-imported-state-goes-here */
 
