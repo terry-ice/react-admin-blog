@@ -12,6 +12,14 @@ const GET_ARTICLE_QUERY = gql`
 			state
 			description
 			keywords
+      category{
+        name
+        description
+      }
+      label{
+        name
+        description
+      }
 			thumbnail
 			createdAt
 		}
@@ -93,29 +101,29 @@ const UPDATE_ARTICLE_MUTATION = gql`
 `;
 
 const ArticleContainer = ({ children }: any) => {
-	const { loading, data } = useQuery(GET_ARTICLE_QUERY);
-	const [addArticleMutation, addArticleResult] = useMutation(
-		CREATE_ARTICLE_MUTATION,
-		{
-			refetchQueries: ["GET_ARTICLE_QUERY"]
-		}
-	);
-	const [delArticleMutation, delArticleResult] = useMutation(
-		DELETE_ITEM_MUTATION,
-		{ refetchQueries: ["GET_ARTICLE_QUERY"] }
-	);
-	const [updateArticleMutation, updateArticleResult] = useMutation(
-		UPDATE_ARTICLE_MUTATION,
-		{ refetchQueries: ["GET_ARTICLE_QUERY"] }
-	);
-	return children({
-		article: { loading, data },
-		addArticle: { mutation: addArticleMutation, result: addArticleResult },
-		delArticle: { mutation: delArticleMutation, result: delArticleResult },
-		updateArticle: {
-			mutation: updateArticleMutation,
-			result: updateArticleResult
-		}
-	});
+  const { loading, data } = useQuery(GET_ARTICLE_QUERY);
+  const [addArticleMutation, addArticleResult] = useMutation(
+    CREATE_ARTICLE_MUTATION,
+    {
+      refetchQueries: ["GET_ARTICLE_QUERY"]
+    }
+  );
+  const [delArticleMutation, delArticleResult] = useMutation(
+    DELETE_ITEM_MUTATION,
+    { refetchQueries: ["GET_ARTICLE_QUERY"] }
+  );
+  const [updateArticleMutation, updateArticleResult] = useMutation(
+    UPDATE_ARTICLE_MUTATION,
+    { refetchQueries: ["GET_ARTICLE_QUERY"] }
+  );
+  return children({
+    article: { loading, data },
+    addArticle: { mutation: addArticleMutation, result: addArticleResult },
+    delArticle: { mutation: delArticleMutation, result: delArticleResult },
+    updateArticle: {
+      mutation: updateArticleMutation,
+      result: updateArticleResult
+    }
+  });
 };
 export default ArticleContainer;

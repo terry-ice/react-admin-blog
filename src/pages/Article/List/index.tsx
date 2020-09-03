@@ -1,6 +1,6 @@
 import ArticleContainer from "@/graphql/article";
 import { setArticleInfo } from "@/redux/article/actions";
-import { Divider, Table } from "antd";
+import { Divider, Table, Tag } from "antd";
 import React from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -31,11 +31,27 @@ const List: React.SFC<Props> = ({ history, dispatch }) => {
     },
     {
       title: "分类",
-      dataIndex: "description"
+      dataIndex: "category",
+      render: (text: any) => {
+        return (
+          <span>{text.name}</span>
+        )
+      }
     },
     {
       title: "标签",
-      dataIndex: "thumbnail"
+      dataIndex: "label",
+      render: (text: any) => {
+        return (
+          <span>
+            {text.map((item: any) => {
+              return (
+                <Tag key={item.name} color="blue">{item.name}</Tag>
+              )
+            })}
+          </span>
+        )
+      }
     },
     {
       title: "日期",

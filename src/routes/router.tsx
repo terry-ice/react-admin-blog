@@ -37,7 +37,7 @@ const Routes: Routers[] = [
         component: Article
       },
       {
-        path: '/article/add/:id',
+        path: '/article/add',
         title: 'add',
         icon: 'plus',
         component: ArticleAdd
