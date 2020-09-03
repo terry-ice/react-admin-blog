@@ -1,22 +1,28 @@
 import { Button, Input } from "antd";
 import React from "react";
-import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { compose } from "recompose"
 import Header from "./style";
 
 const { Search } = Input;
 const ButtonGroup = Button.Group;
 
-export default () => {
+interface Props {
+  readonly history: any;
+}
+
+const Head: React.SFC<Props> = ({ history }) => {
   return (
     <Header>
       <div className="header">
         <h3>文章列表</h3>
         <div className="addBtn">
-          <Link to="/article">
-            <Button icon="plus" type="primary">
-              ADD
-            </Button>
-          </Link>
+          <Button icon="plus" onClick={() => {
+            history.push("/article/add");
+          }} type="primary">
+            ADD
+          </Button>
         </div>
       </div>
       <div className="features">
@@ -47,3 +53,9 @@ export default () => {
     </Header>
   );
 };
+
+
+export default compose(
+  connect(),
+  withRouter
+)(Head);

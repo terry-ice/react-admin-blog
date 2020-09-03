@@ -1,5 +1,4 @@
 import { StyleBtn, StyleLabel } from '@/assets/style/common';
-import Tags from '@/components/Tags';
 import useFrom from '@/components/UseFrom';
 import ArticleContainer from '@/graphql/article';
 import { IStoreState } from '@/redux/storeState';
@@ -27,9 +26,10 @@ interface Props {
   readonly article: Article;
   readonly label: Label[];
   readonly match: any;
+  readonly history: any;
 }
 
-const AddArticle: React.SFC<Props> = ({ category, match, article, label }) => {
+const AddArticle: React.SFC<Props> = ({ category, match, article, label, history }) => {
   const { id } = match.params;
   const initDetail = {
     title: '',
@@ -42,15 +42,12 @@ const AddArticle: React.SFC<Props> = ({ category, match, article, label }) => {
     label: ''
   };
   const dataDetail = id ? article : initDetail;
-  const [tagList, setTag] = React.useState<string[]>([]);
   const [loading, setLoading] = React.useState<boolean>(false);
   const [imageUrl, setImageUrl] = React.useState<string>('');
   const [data, handelChange] = useFrom(dataDetail);
   const required = (value: string) => (value ? undefined : 'Required');
 
-  React.useEffect(() => {
-    setTag(['Movies', 'Books', 'Music', 'Sports']);
-  }, []);
+
 
   function getBase64(img: any, callback: any) {
     const reader = new FileReader();
@@ -96,11 +93,13 @@ const AddArticle: React.SFC<Props> = ({ category, match, article, label }) => {
           return (
             <Form
               onSubmit={async value => {
-                console.log(value, 'value');
                 addArticle
                   .mutation({ variables: value })
                   .then((res: any) => {
-                    console.log(res);
+                    message.success("操作成功");
+                    setTimeout(() => {
+                      history.push(`/article/list`);
+                    }, 1000);
                   })
                   .catch((err: any) => {
                     console.log(err);
@@ -112,8 +111,6 @@ const AddArticle: React.SFC<Props> = ({ category, match, article, label }) => {
                 <form onSubmit={handleSubmit}>
                   <div className="post-body-content">
                     <div className="article-content">
-                      <pre>{JSON.stringify(values)}</pre>
-
                       <StyleLabel width="472px">
                         <Field name="title" validate={required}>
                           {({ input, meta }: any) => (
@@ -166,21 +163,10 @@ const AddArticle: React.SFC<Props> = ({ category, match, article, label }) => {
                         </Field>
                       </StyleLabel>
                       <StyleLabel width="272px">
-                        <label htmlFor="keywords">
-                          标签
-                          <div className="article-tag">
-                            {tagList.map(tag => (
-                              <Tags key={tag}>{tag}</Tags>
-                            ))}
-                          </div>
-                        </label>
-                      </StyleLabel>
-                      <StyleLabel width="272px">
                         <Field name="body">
                           {({ input, meta }: any) => {
                             return (
                               <label htmlFor="body">
-                                内容
                                 <MarkEdit {...input}>
                                   <TextArea
                                     id="markDown"
@@ -219,8 +205,8 @@ const AddArticle: React.SFC<Props> = ({ category, match, article, label }) => {
                             style={{ width: '100%' }}
                           />
                         ) : (
-                          uploadButton
-                        )}
+                            uploadButton
+                          )}
                       </Upload>
                     </div>
                     <div className="postbox-container-submit">

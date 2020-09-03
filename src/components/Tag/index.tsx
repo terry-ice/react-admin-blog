@@ -20,9 +20,9 @@ const columns = [
     key: 'action',
     render: (text: any, record: any) => (
       <span>
-        <a href="javascript:;">编辑</a>
+        <a  >编辑</a>
         <Divider type="vertical" />
-        <a href="javascript:;">查看</a>
+        <a  >查看</a>
       </span>
     )
   }
